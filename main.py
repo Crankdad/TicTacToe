@@ -6,18 +6,31 @@ class TicTacTo:
         self.players[0]['Name'] = player1Name
         self.players[1]['Name'] = player2Name
         self.gameboard = {1:'1', 2:'2', 3:'3', 4:'4', 5:'5', 6:'6', 7:'7', 8:'8', 9:'9'}
-        
+    
+    def getPlayer(self, player):
+        return(self.players[player])
+
     def show(self) -> str:
+        
+        x = ['0']
+        for position in self.gameboard:
+            if self.gameboard[position] == self.players[0]['Symbol']:
+                x.append(f'\x1B[32m{self.gameboard[position]}\x1B[0m')
+            elif self.gameboard[position] == self.players[1]['Symbol']:
+                x.append(f'\x1B[33m{self.gameboard[position]}\x1B[0m')
+            else:
+                x.append(self.gameboard[position])       
+        
         return f'''
                    _______________________
                   |       |       |       |
-                  |   {self.gameboard[1]}   |   {self.gameboard[2]}   |   {self.gameboard[3]}   |
+                  |   {x[1]}   |   {x[2]}   |   {x[3]}   |
                   |_______|_______|_______|
                   |       |       |       |
-                  |   {self.gameboard[4]}   |   {self.gameboard[5]}   |   {self.gameboard[6]}   |
+                  |   {x[4]}   |   {x[5]}   |   {x[6]}   |
                   |_______|_______|_______|
                   |       |       |       |
-                  |   {self.gameboard[7]}   |   {self.gameboard[8]}   |   {self.gameboard[9]}   |
+                  |   {x[7]}   |   {x[8]}   |   {x[9]}   |
                   |_______|_______|_______|
                   '''        
     
@@ -31,7 +44,9 @@ class TicTacTo:
         except KeyError:
             return 'Position is not availible!'
     
-    def checkForVictory(self) -> str:
+    def checkForVictory(self) -> str:   
+        
+        winnerSymbol = ''   
         # check horizontal lines
         for i in range(1,10,3):
             if self.gameboard[i] == self.gameboard[i+1] == self.gameboard[i+2]:
@@ -46,22 +61,43 @@ class TicTacTo:
         elif self.gameboard[3] == self.gameboard[5] == self.gameboard[7]:
             winnerSymbol = self.gameboard[3]
         
-        if winnerSymbol != None:
+        if winnerSymbol != '':
             for index in self.players:
                 if index['Symbol'] == winnerSymbol:
                     return index['Name']
         else:
-            return None
-                 
-            
-            
-            
+            return winnerSymbol    
+        
+        
+        
+        
 #test
 if __name__ == '__main__':
-    game = TicTacTo('David', 'Cilia')
-    print(game.setPosition(0,3))
-    print(game.setPosition(0,5))
-    print(game.setPosition(0,7))
-
-    print(game.show())
-    print(game.checkForVictory())
+    
+    from random import randint
+    from time import sleep
+        
+    name1 = input('please set name of player 1:\t')
+    sleep(0.5)
+    name2 = input('please set name of player 2:\t')  
+        
+    game = TicTacTo(name1, name2)
+    print()
+    print(name1, ' get symbol ', f'\x1B[32m{game.getPlayer(0)['Symbol']}\x1B[0m')  
+    print(name2, ' get symbol ', f'\x1B[33m{game.getPlayer(1)['Symbol']}\x1B[0m')      
+    print()
+    actPlayer = randint(0,1)
+    print(game.getPlayer(actPlayer)['Name'], ', please start!')
+    print()
+    for _ in range(0,10):
+        pos = int(input(f'{game.getPlayer(actPlayer)['Name']} please choose a Position to set your {game.getPlayer(actPlayer)['Symbol']}: \t'))
+        print(game.setPosition(actPlayer, pos))
+        print(game.show())
+        winner = game.checkForVictory()
+        if winner != '':
+            print(f'Congratulations, the winner is: {winner}')
+            break
+        else:
+            if actPlayer > 0:
+                actPlayer -= 1
+            else: actPlayer += 1
