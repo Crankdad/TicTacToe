@@ -61,6 +61,13 @@ class TicTacTo:
         elif self.gameboard[3] == self.gameboard[5] == self.gameboard[7]:
             winnerSymbol = self.gameboard[3]
         
+        # check game is over without winner
+        for i in range(1,10):
+            if self.gameboard[i] == f'{i}':
+                break
+            elif i == 9:
+                return 'nobody'
+        
         if winnerSymbol != '':
             for index in self.players:
                 if index['Symbol'] == winnerSymbol:
@@ -89,7 +96,7 @@ if __name__ == '__main__':
     actPlayer = randint(0,1)
     print(game.getPlayer(actPlayer)['Name'], ', please start!')
     print()
-    for _ in range(0,10):
+    while True:
         pos = int(input(f'{game.getPlayer(actPlayer)['Name']} please choose a Position to set your {game.getPlayer(actPlayer)['Symbol']}: \t'))
         print(game.setPosition(actPlayer, pos))
         print(game.show())
