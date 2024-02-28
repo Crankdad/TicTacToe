@@ -73,11 +73,8 @@ class TicTacTo:
                 if index['Symbol'] == winnerSymbol:
                     return index['Name']
         else:
-            return winnerSymbol    
-        
-        
-        
-        
+            return winnerSymbol          
+          
 #test
 if __name__ == '__main__':
     
