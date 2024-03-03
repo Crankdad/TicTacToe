@@ -83,11 +83,14 @@ if __name__ == '__main__':
     
     name1, name2 = '', ''
     
-    while name1 == '':
-        name1 = input('Please set name of player 1:\t')
+    try:
+        while name1 == '':
+            name1 = input('Please set name of player 1:\t')
 
-    while name2 == '':
-        name2 = input('Please set name of player 2:\t')  
+        while name2 == '':
+            name2 = input('Please set name of player 2:\t')  
+    except KeyboardInterrupt:
+        print('Programm canceled by user!')
         
     game = TicTacTo(name1, name2)
     print()
