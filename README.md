@@ -1,3 +1,3 @@
 # TIC TAC TOE
 ### Why?
-Because i what to try python an github.
+Because i what to try python and github.
