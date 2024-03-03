@@ -1,5 +1,4 @@
 class TicTacTo:
-    # dic type {'No': 0, 'Name': '', 'Symbol': ''}
     
     def __init__(self,  player1Name: str = 'X', player2Name: str = 'O'):
         self.players = ({'Name': '', 'Symbol': 'X'}, {'Name': '', 'Symbol': 'O'})
@@ -10,7 +9,7 @@ class TicTacTo:
     def getPlayer(self, player):
         return(self.players[player])
 
-    def show(self) -> str:
+    def showGameboard(self) -> str:
         
         x = ['0']
         for position in self.gameboard:
@@ -46,15 +45,14 @@ class TicTacTo:
             if index['Symbol'] == symbol:
                 return index['Name']
         
-    def checkForVictory(self) -> str:   
-        
+    def checkForVictory(self) -> str:          
         winnerSymbol = ''   
-        # check horizontal lines
+        # check horizontal lines (rows)
         for i in range(1,10,3):
             if self.gameboard[i] == self.gameboard[i+1] == self.gameboard[i+2]:
                 winnerSymbol = self.gameboard[i]
                 return(self.getNamebySymbol(winnerSymbol))     
-        # check vertikal lines
+        # check vertikal lines (columns)
         for i in range(1,4):
             if self.gameboard[i] == self.gameboard[i+3] == self.gameboard[i+6]:
                 winnerSymbol = self.gameboard[i]      
@@ -67,7 +65,7 @@ class TicTacTo:
             winnerSymbol = self.gameboard[3]
             return(self.getNamebySymbol(winnerSymbol))   
         
-        # check game is over without winner
+        # check if game is over without winner
         for i in range(1,10):
             if self.gameboard[i] == f'{i}':
                 break
@@ -79,10 +77,11 @@ class TicTacTo:
 if __name__ == '__main__':
     
     from random import randint
-    from time import sleep
     
+    ################ SETUP ################
+    # init users
     name1, name2 = '', ''
-    
+    # query the names
     try:
         while name1 == '':
             name1 = input('Please set name of player 1:\t')
@@ -92,12 +91,17 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         print('Programm canceled by user!')
         exit()
-        
+    #######################################
+    # instance: game -> TicTacTo class    
     game = TicTacTo(name1, name2)
+    
+    ################ START GAME ################
     print()
     print(name1, ' get symbol ', f'\x1B[32m{game.getPlayer(0)['Symbol']}\x1B[0m')  
     print(name2, ' get symbol ', f'\x1B[33m{game.getPlayer(1)['Symbol']}\x1B[0m')      
     print()
+    
+    # choose random starter
     actPlayer = randint(0,1)
     print(game.getPlayer(actPlayer)['Name'], ', please start!')
     print()
@@ -108,18 +112,21 @@ if __name__ == '__main__':
         except ValueError:
             print('Incorrect Input')
             continue
-        except KeyError:
+        except KeyError: # because positionnumber is not in gameboard list or error is raised by setPosition method
             print('Position is not availible!')
             continue
         except KeyboardInterrupt:
             print('Programm canceled by user!')
             exit()
-        print(game.show())
-        winner = game.checkForVictory()
+        print(game.showGameboard()) # show gameboard
+        winner = game.checkForVictory() # check for winner
         if winner != '':
+            #someone or nobody win -> stop while, end script
             print(f'Congratulations, the winner is: {winner}')
             break
         else:
+            # next player
             if actPlayer > 0:
                 actPlayer -= 1
             else: actPlayer += 1
+    exit()
