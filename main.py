@@ -41,46 +41,53 @@ class TicTacTo:
         else:
             raise KeyError
         
+    def getNamebySymbol(self, symbol: str) -> str:
+        for index in self.players:
+            if index['Symbol'] == symbol:
+                return index['Name']
+        
     def checkForVictory(self) -> str:   
         
         winnerSymbol = ''   
         # check horizontal lines
         for i in range(1,10,3):
             if self.gameboard[i] == self.gameboard[i+1] == self.gameboard[i+2]:
-                winnerSymbol = self.gameboard[i]        
+                winnerSymbol = self.gameboard[i]
+                return(self.getNamebySymbol(winnerSymbol))     
         # check vertikal lines
         for i in range(1,4):
             if self.gameboard[i] == self.gameboard[i+3] == self.gameboard[i+6]:
-                winnerSymbol = self.gameboard[i]              
+                winnerSymbol = self.gameboard[i]      
+                return(self.getNamebySymbol(winnerSymbol))             
         # check diagonal lines
         if self.gameboard[1] == self.gameboard[5] == self.gameboard[9]:
             winnerSymbol = self.gameboard[1]
+            return(self.getNamebySymbol(winnerSymbol))   
         elif self.gameboard[3] == self.gameboard[5] == self.gameboard[7]:
             winnerSymbol = self.gameboard[3]
+            return(self.getNamebySymbol(winnerSymbol))   
         
         # check game is over without winner
         for i in range(1,10):
             if self.gameboard[i] == f'{i}':
                 break
             elif i == 9:
-                return 'nobody'
-        
-        if winnerSymbol != '':
-            for index in self.players:
-                if index['Symbol'] == winnerSymbol:
-                    return index['Name']
-        else:
-            return winnerSymbol          
+                return 'nobody'     
+        return ''
           
 #test
 if __name__ == '__main__':
     
     from random import randint
     from time import sleep
-        
-    name1 = input('please set name of player 1:\t')
-    sleep(0.5)
-    name2 = input('please set name of player 2:\t')  
+    
+    name1, name2 = '', ''
+    
+    while name1 == '':
+        name1 = input('Please set name of player 1:\t')
+
+    while name2 == '':
+        name2 = input('Please set name of player 2:\t')  
         
     game = TicTacTo(name1, name2)
     print()
