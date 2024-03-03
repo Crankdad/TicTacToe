@@ -35,15 +35,12 @@ class TicTacTo:
                   '''        
     
     def setPosition(self, player: int, position: int) -> str:
-        try:
-            if self.gameboard[position] == str(position):
-                self.gameboard[position] = self.players[player]['Symbol']
-                return f'{self.players[player]['Name']} write {self.players[player]['Symbol']} at position {position}'
-            else:
-                return 'Position is occupied!'
-        except KeyError:
-            return 'Position is not availible!'
-    
+        if self.gameboard[position] == str(position):
+            self.gameboard[position] = self.players[player]['Symbol']
+            return f'{self.players[player]['Name']} write {self.players[player]['Symbol']} at position {position}'
+        else:
+            raise KeyError
+        
     def checkForVictory(self) -> str:   
         
         winnerSymbol = ''   
@@ -94,8 +91,18 @@ if __name__ == '__main__':
     print(game.getPlayer(actPlayer)['Name'], ', please start!')
     print()
     while True:
-        pos = int(input(f'{game.getPlayer(actPlayer)['Name']} please choose a Position to set your {game.getPlayer(actPlayer)['Symbol']}: \t'))
-        print(game.setPosition(actPlayer, pos))
+        try:
+            pos = int(input(f'{game.getPlayer(actPlayer)['Name']} please choose a Position to set your {game.getPlayer(actPlayer)['Symbol']}: \t'))
+            print(game.setPosition(actPlayer, pos))
+        except ValueError:
+            print('Incorrect Input')
+            continue
+        except KeyError:
+            print('Position is not availible!')
+            continue
+        except KeyboardInterrupt:
+            print('Programm canceled by user!')
+            exit()
         print(game.show())
         winner = game.checkForVictory()
         if winner != '':
