@@ -91,6 +91,7 @@ if __name__ == '__main__':
             name2 = input('Please set name of player 2:\t')  
     except KeyboardInterrupt:
         print('Programm canceled by user!')
+        exit()
         
     game = TicTacTo(name1, name2)
     print()
