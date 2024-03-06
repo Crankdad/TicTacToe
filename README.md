@@ -1,5 +1,4 @@
 # TIC TAC TOE
-<<<<<<< HEAD
 
 *A TicTacToe who can played in every terminal.<br>Very simple in functionality.*
 
