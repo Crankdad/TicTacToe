@@ -6,7 +6,7 @@ class TicTacTo:
         self.players[1]['Name'] = player2Name
         self.gameboard = {1:'1', 2:'2', 3:'3', 4:'4', 5:'5', 6:'6', 7:'7', 8:'8', 9:'9'}
     
-    def getPlayer(self, player):
+    def getPlayer(self, player: int):
         return(self.players[player])
 
     def showGameboard(self) -> str:
