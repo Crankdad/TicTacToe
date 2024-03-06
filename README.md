@@ -67,7 +67,7 @@ If no winner is found and all positions are occupied the function returns "nobod
 
 ## Run the script
 
-#### Standart-Gamemode
+#### Standard-Gamemode
 
 1. You have to set two names for the two players.
 2. Random pick of the beginnig player.
