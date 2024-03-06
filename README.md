@@ -1,4 +1,5 @@
 # TIC TAC TOE
+<<<<<<< HEAD
 
 *A TicTacToe who can played in every terminal.<br>Very simple in functionality.*
 
@@ -72,4 +73,3 @@ If no winner is found and all positions are occupied the function returns "nobod
 2. Random pick of the beginnig player.
 3. Write the number in terminal where you want to place your symobol.
 4. Play until one winns or all position are occupied.
-
