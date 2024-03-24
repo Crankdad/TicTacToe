@@ -14,13 +14,13 @@ class TicTacTo:
         x = ['0']
         for position in self.gameboard:
             if self.gameboard[position] == self.players[0]['Symbol']:
-                x.append(f'\x1B[32m{self.gameboard[position]}\x1B[0m')
+                x.append(f"\x1B[32m{self.gameboard[position]}\x1B[0m")
             elif self.gameboard[position] == self.players[1]['Symbol']:
-                x.append(f'\x1B[33m{self.gameboard[position]}\x1B[0m')
+                x.append(f"\x1B[33m{self.gameboard[position]}\x1B[0m")
             else:
                 x.append(self.gameboard[position])       
         
-        return f'''
+        return f"""
                    _______________________
                   |       |       |       |
                   |   {x[1]}   |   {x[2]}   |   {x[3]}   |
@@ -31,12 +31,12 @@ class TicTacTo:
                   |       |       |       |
                   |   {x[7]}   |   {x[8]}   |   {x[9]}   |
                   |_______|_______|_______|
-                  '''        
+                  """        
     
     def setPosition(self, player: int, position: int) -> str:
         if self.gameboard[position] == str(position):
             self.gameboard[position] = self.players[player]['Symbol']
-            return f'{self.players[player]['Name']} write {self.players[player]['Symbol']} at position {position}'
+            return f"{self.players[player]['Name']} write {self.players[player]['Symbol']} at position {position}"
         else:
             raise KeyError
         
@@ -67,7 +67,7 @@ class TicTacTo:
         
         # check if game is over without winner
         for i in range(1,10):
-            if self.gameboard[i] == f'{i}':
+            if self.gameboard[i] == f"{i}":
                 break
             elif i == 9:
                 return 'nobody'     
@@ -97,8 +97,8 @@ if __name__ == '__main__':
     
     ################ START GAME ################
     print()
-    print(name1, ' get symbol ', f'\x1B[32m{game.getPlayer(0)['Symbol']}\x1B[0m')  
-    print(name2, ' get symbol ', f'\x1B[33m{game.getPlayer(1)['Symbol']}\x1B[0m')      
+    print(name1, ' get symbol ', f"\x1B[32m{game.getPlayer(0)['Symbol']}\x1B[0m")  
+    print(name2, ' get symbol ', f"\x1B[33m{game.getPlayer(1)['Symbol']}\x1B[0m")      
     print()
     
     # choose random starter
@@ -107,7 +107,7 @@ if __name__ == '__main__':
     print()
     while True:
         try:
-            pos = int(input(f'{game.getPlayer(actPlayer)['Name']} please choose a Position to set your {game.getPlayer(actPlayer)['Symbol']}: \t'))
+            pos = int(input(f"{game.getPlayer(actPlayer)['Name']} please choose a Position to set your {game.getPlayer(actPlayer)['Symbol']}: \t"))
             print(game.setPosition(actPlayer, pos))
         except ValueError:
             print('Incorrect Input')
@@ -122,7 +122,7 @@ if __name__ == '__main__':
         winner = game.checkForVictory() # check for winner
         if winner != '':
             #someone or nobody win -> stop while, end script
-            print(f'Congratulations, the winner is: {winner}')
+            print(f"Congratulations, the winner is: {winner}")
             break
         else:
             # next player
